@@ -25,4 +25,4 @@ jobs:
         run: flutter pub get  # This installs the necessary dependencies for the Flutter project.
       
       - name: Build Android APK
-        run: flutter build apk --release --split-per-abi  # This builds the APK for Android in release mode.
+        run: flutter build apk --release --split-per-abi --verbose # This builds the APK for Android in release mode.
