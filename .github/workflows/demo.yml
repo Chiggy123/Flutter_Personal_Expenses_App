@@ -1,5 +1,5 @@
 name: Flutter CI
-'on':
+on:
   push:
     branches:
       - main
@@ -9,16 +9,20 @@ name: Flutter CI
 jobs:
   build:
     name: Build Flutter App
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux]
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           architecture: x64
+      
       - name: Install dependencies
         run: flutter pub get
+      
       - name: Build Android APK
         run: flutter build apk --release --split-per-abi
