@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build Flutter App
-    runs-on: self-hosted  # This assumes you have a self-hosted runner with the 'self-hosted' label.
+    runs-on: ubuntu-latest  # This assumes you have a self-hosted runner with the 'self-hosted' label.
     
     steps:
       - name: Checkout code
