@@ -1,0 +1,45 @@
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Flutter App
+    runs-on: [self-hosted, linux]
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Flutter on the self-hosted runner
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable  # Use stable channel for Flutter
+          architecture: x64
+
+      # Step 3: Install Flutter dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Step 4: Build APK for Android
+      - name: Build Android APK
+        run: flutter build apk --release --split-per-abi
+
+      # Step 5: Build IPA for iOS (if required, on macOS self-hosted runner)
+      - name: Build iOS IPA
+        run: |
+          flutter build ios --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ../Runner.app
+          cd ..
+          zip -r app.ipa Payload
