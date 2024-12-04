@@ -9,20 +9,20 @@ on:
 jobs:
   build:
     name: Build Flutter App
-    runs-on: [self-hosted, linux]
+    runs-on: self-hosted  # This assumes you have a self-hosted runner with the 'self-hosted' label.
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # This is correct and will pull the latest code from the repository.
       
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2  # This sets up the Flutter environment correctly.
         with:
-          channel: stable
-          architecture: x64
+          channel: stable  # You're using the stable Flutter channel, which is great for most projects.
+          architecture: x64  # Make sure your self-hosted runner has a 64-bit architecture.
       
       - name: Install dependencies
-        run: flutter pub get
+        run: flutter pub get  # This installs the necessary dependencies for the Flutter project.
       
       - name: Build Android APK
-        run: flutter build apk --release --split-per-abi
+        run: flutter build apk --release --split-per-abi  # This builds the APK for Android in release mode.
